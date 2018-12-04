@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Dingo\Api\Routing\Router;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Symfony\Component\Finder\Finder;
 
