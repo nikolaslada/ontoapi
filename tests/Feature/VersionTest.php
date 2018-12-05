@@ -11,13 +11,13 @@ class VersionTest extends TestCase
      *
      * Test: GET /version.
      */
-    public function testVersion(): void
+    public function testIndex(): void
     {
         $result = [
             'version' => '0',
         ];
         
-        $response = $this->get('/ontoapi/public/version');
+        $response = $this->get('/version');
         $response->assertStatus(200);
         $response->assertJson(
             $result,
