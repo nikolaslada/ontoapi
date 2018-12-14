@@ -3,29 +3,26 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AuthenticateTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * @test
      *
-     * Test: POST /authenticate.
+     * Test: POST /login.
      */
-    public function testGetAuthToken(): void
+    public function testLogin(): void
     {
-        $password = 'sectedPassword';
-        $user = factory(User::class)->create([
-            'password' => bcrypt($password),
+        $this->refreshDatabase();
+        $this->seed(\UsersTableSeeder::class);
+        $response = $this->post('/login', [
+            'email' => 'test@test.loc',
+            'password' => 'secret',
         ]);
         
-        $this
-            ->post(
-            '/api/authenticate',
-            [
-                'email' => $user->email,
-                'password' => $password,
-            ])
+        $response
             ->assertStatus(200)
             ->assertJsonStructure([
                 'token',
