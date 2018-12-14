@@ -21,10 +21,12 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerPolicies();
 
-        //
+        app(\Dingo\Api\Auth\Auth::class)->extend('jwt', function ($app) {
+            return new \Dingo\Api\Auth\Provider\JWT($app[\Tymon\JWTAuth\JWTAuth::class]);
+        });
     }
 }
