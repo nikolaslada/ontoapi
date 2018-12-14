@@ -1,6 +1,6 @@
 <?php
 
-$api->get('/version', [
-    'as'   => 'api.version.index',
-    'uses' => 'VersionController@index',
+$api->post('/login', [
+	'as'   => 'authenticate.login',
+	'uses' => 'AuthenticateController@login',
 ]);
