@@ -3,26 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Dingo\Api\Routing;
+use Dingo\Api\Http\Response;
+use App\Repositories\OntologyRepository;
+use App\Transformers\OntologyTransformer;
 
-class OntologyController extends Controller
+final class OntologyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    
+    use Routing\Helpers;
+    
+    
+    /** @var OntologyRepository */
+    private $repository;
+    
+    
+    public function __construct(OntologyRepository $repository)
     {
-        return [
-            [
-                'id' => 1,
-                'name' => 'My ontology',
-            ],
-            [
-                'id' => 2,
-                'name' => 'My ontology',
-            ],
-        ];
+        $this->repository = $repository;
+    }
+    
+    
+    public function index(): Response
+    {
+		return $this->response->collection(
+            $this->repository->getIndex(),
+            new OntologyTransformer
+		);
     }
 
     /**
