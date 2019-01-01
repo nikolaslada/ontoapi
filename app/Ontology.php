@@ -12,8 +12,8 @@ final class Ontology extends Model
     protected $table = 'ontologies';
     
     
-    public function user(): Relations\HasOne {
-        return $this->hasOne(User::class);
+    public function user(): Relations\BelongsTo {
+        return $this->belongsTo(User::class);
     }
     
 }
