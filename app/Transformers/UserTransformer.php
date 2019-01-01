@@ -15,8 +15,8 @@ final class UserTransformer extends TransformerAbstract
 	public function transform(User $user): array 
 	{
 		$response = [
-			'id'   => $user->id,
-			'name' => $user->name
+			'id' => $user->id,
+			'name' => $user->name,
 		];
         
 		if ($this->showEmail === true) {
