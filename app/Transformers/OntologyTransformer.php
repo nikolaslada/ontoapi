@@ -2,28 +2,21 @@
 
 namespace App\Transformers;
 
-use App\Ontology;
 use League\Fractal\TransformerAbstract;
-use League\Fractal\Resource;
 
 final class OntologyTransformer extends TransformerAbstract
 {
     
-	public function transform(Ontology $ontology): array
+	public function transform(\stdClass $data): array
 	{
 		return [
-			'id'   => (int) $ontology->id,
-			'name' => $ontology->name,
+			'id' => (int) $data->id,
+			'name' => $data->name,
+            'user' => [
+                'id' => (int) $data->userId,
+                'name' => $data->userName,
+            ],
 		];
-	}
-    
-    
-    public function includeUser(Ontology $ontology): Resource\Item
-	{
-		return $this->item(
-            $ontology->user,
-            (new UserTransformer)->hideEmail()
-        );
 	}
     
 }
