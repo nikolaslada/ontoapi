@@ -3,7 +3,9 @@
 namespace App\Repositories;
 
 use Illuminate\Database\Connection;
-use Illuminate\Support\Collection;
+use Illuminate\Support;
+use Illuminate\Database\Eloquent;
+use App\Ontology;
 
 final class OntologyRepository
 {
@@ -17,7 +19,7 @@ final class OntologyRepository
     }
     
     
-    public function getIndex(): Collection
+    public function getIndex(): Support\Collection
     {
         return $this
             ->connection
@@ -30,6 +32,18 @@ final class OntologyRepository
                 'users.name AS userName'
             )
             ->get();
+    }
+    
+    
+    public function myOntologies(int $userId): Eloquent\Collection
+    {
+        return Ontology
+            ::with('')
+            ->where('user_id', '=', $userId)
+            ->get([
+                'id',
+                'name',
+            ]);
     }
     
 }
