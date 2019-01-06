@@ -1,6 +1,6 @@
 <?php
 
 $api->post('/login', [
-	'as'   => 'authenticate.login',
+	'as'   => 'api.authenticate.login',
 	'uses' => 'AuthenticateController@login',
 ]);
