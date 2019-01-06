@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Dingo\Api\Auth\Auth;
+use Dingo\Api\Auth\Provider\JWT;
+use Tymon\JWTAuth\JWTAuth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,8 +27,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        app(\Dingo\Api\Auth\Auth::class)->extend('jwt', function ($app) {
-            return new \Dingo\Api\Auth\Provider\JWT($app[\Tymon\JWTAuth\JWTAuth::class]);
+        app(Auth::class)->extend('jwt', function ($app) {
+            return new JWT($app[JWTAuth::class]);
         });
     }
 }
