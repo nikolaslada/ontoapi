@@ -38,8 +38,7 @@ final class OntologyRepository
     public function myOntologies(int $userId): Eloquent\Collection
     {
         return Ontology
-            ::with('')
-            ->where('user_id', '=', $userId)
+            ::where('user_id', '=', $userId)
             ->get([
                 'id',
                 'name',

@@ -26,7 +26,7 @@ final class MyOntologyController extends Controller
     
     public function index(): Response
     {
-        $id = 1;
+        $id = $this->auth->getUser(true)->getAuthIdentifier();
 		return $this->response->collection(
             $this->repository->myOntologies($id),
             new MyOntologyTransformer
