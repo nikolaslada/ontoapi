@@ -10,7 +10,8 @@ class OntologiesTableSeeder extends Seeder
         $user = factory(\App\User::class)->create();
         
         factory(\App\Ontology::class, 2)->create([
-        	'user_id' => $user->id
+        	'user_id' => $user->id,
+            'name' => $user->name . "'s Ontology",
         ]);
     }
     
