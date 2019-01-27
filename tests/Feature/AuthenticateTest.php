@@ -3,11 +3,26 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AuthenticateTest extends TestCase
 {
-    use RefreshDatabase;
+    /** @var \Illuminate\Database\Connection */
+    private $connection;
+    
+    
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        \exec('php artisan migrate:refresh --env=testing');
+    }
+    
+    
+    protected function setUp(): void {
+        parent::setUp();
+        $this->connection = $this->app->make('Illuminate\Database\Connection');
+    }
+    
+    
     /**
      * @test
      *
@@ -15,10 +30,14 @@ class AuthenticateTest extends TestCase
      */
     public function testLogin(): void
     {
-        $this->refreshDatabase();
         $this->seed(\UsersTableSeeder::class);
+        $user = $this
+            ->connection
+            ->table('users')
+            ->first();
+        
         $response = $this->post('/login', [
-            'email' => 'test@test.loc',
+            'email' => $user->email,
             'password' => 'secret',
         ]);
         
